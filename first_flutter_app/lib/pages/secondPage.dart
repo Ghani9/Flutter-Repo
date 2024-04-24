@@ -19,7 +19,7 @@ class SecondPage extends StatelessWidget {
       body: Center(
         child: GestureDetector(
             onTap: () {
-              Navigator.pop(context);
+              // Navigator.pop(context);
 
               // Navigator.push(context,
               //     MaterialPageRoute(builder: (context) => FirstPage()));
