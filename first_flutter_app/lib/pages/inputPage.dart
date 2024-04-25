@@ -9,11 +9,25 @@ class InputPage extends StatefulWidget {
 
 class _MyWidgetState extends State<InputPage> {
   TextEditingController inputController = TextEditingController();
-  String inputData = "";
+  var inputsData = [];
+  var msg = '';
   void ShowInput() {
     setState(() {
-      inputData = inputController.text;
+      inputsData.add(inputController.text);
       inputController.text = "";
+    });
+    msg = '';
+    print('Btn is Clicked');
+  }
+
+  void DeleteItem() {
+    print(inputsData.length);
+    setState(() {
+      if (inputsData.length > 0) {
+        for (var input in inputsData) inputsData.remove(input);
+      } else {
+        msg = 'No item exist!';
+      }
     });
 
     print('Btn is Clicked');
@@ -28,14 +42,21 @@ class _MyWidgetState extends State<InputPage> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(inputData),
+                  Text(msg),
                   TextField(
                     controller: inputController,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
                         hintText: 'Enter your name'),
                   ),
-                  ElevatedButton(onPressed: ShowInput, child: Text('Click'))
+                  ElevatedButton(onPressed: ShowInput, child: Text('Click')),
+                  Column(
+                    children: [
+                      for (var inputName in inputsData) Text(inputName),
+                      ElevatedButton(
+                          onPressed: DeleteItem, child: Text('Clear List'))
+                    ],
+                  )
                 ],
               ))),
     );
